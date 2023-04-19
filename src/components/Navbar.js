@@ -30,11 +30,7 @@ export default function Navbar({ onResults }) {
           <div className="relative p-2 flex items-center justify-end w-1/4 ml-5 mr-4 sm:mr-0 sm:right-auto">
             <div className="block relative flex item-center ">
               <Link to="/">
-                <img
-                  alt="profil"
-                  src="/play.svg"
-                  className="mx-auto object-cover rounded-full h-12 w-12 "
-                />
+                <h2 className="text-gray-50 font-extrabold text-xl">Movies Book </h2>
               </Link>
             </div>
           </div>
