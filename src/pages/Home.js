@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
+
+// Components
+import SidebarLayout from "../components/SidebarLayout";
 import Container from "../components/Container";
 import Navbar from "../components/Navbar";
-import NotResults from "../components/NotResults";
 import Loading from "../components/Loading";
+
+// Utils
 import { api } from "../config/utils";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [results, setResults] = useState([]);
+  const [genres, setGenres] = useState([]);
   const [usedSearch, setusedSearch] = useState(false);
 
   useEffect(() => {
     getMovies();
+    getGenres();
   }, []);
 
   const getMovies = () => {
@@ -23,29 +29,36 @@ export default function Home() {
       .catch((error) => console.log(error));
   };
 
+  const getGenres = () => {
+    fetch(api.genres)
+      .then((response) => response.json())
+      .then((myJson) => {
+        setGenres([...myJson.genres, { id: 0, name: "All" }]);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const handleResults = (results) => {
     setusedSearch(true);
     setResults(results);
   };
 
   const renderResults = () => {
-    return results === "" ? (
-      <NotResults />
-    ) : (
-      <Container results={results} search={true} />
-    );
+    return <Container results={results} search={true} genres={genres} />;
   };
 
   return (
-    <div className="w-full bg-gray-900 p-12 overflow-auto h-screen">
-      <Navbar onResults={handleResults} />
-      {usedSearch ? (
-        renderResults()
-      ) : data.length > 0 ? (
-        <Container data={data} search={false} />
-      ) : (
-        <Loading />
-      )}
-    </div>
+    <SidebarLayout>
+      <div class="main">
+        <Navbar onResults={handleResults} />
+        {usedSearch ? (
+          renderResults()
+        ) : data.length > 0 ? (
+          <Container data={data} search={false} genres={genres} />
+        ) : (
+          <Loading />
+        )}
+      </div>
+    </SidebarLayout>
   );
 }

@@ -1,10 +1,11 @@
-export const api_key = "050acc481097509dbc630dbcb2dbbca9";
+export const api_key = process.env.REACT_APP_TMDB_API_KEY;
 export const api = {
   home: `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en&page=1&limit=20`,
   search: (query) =>
     `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&language=en&page=1&limit=20&query=${query}`,
   detail: (id) =>
     `https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}&language=en`,
+  genres: `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
 };
 
 export const showVotes = (movie) => {

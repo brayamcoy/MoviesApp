@@ -1,4 +1,6 @@
 import { Switch, Route } from "react-router-dom";
+
+// Pages
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import NotFound from "./pages/NotFound";
